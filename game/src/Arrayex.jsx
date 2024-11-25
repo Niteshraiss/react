@@ -6,7 +6,7 @@ function Arrayex(params) {
         <>
         <div>
             <h1>Todo List</h1>
-            {todo.map((e)=><li>{e}</li>)}
+            {todo.map((e,key)=><li key={key}>{e}</li>)}
         </div>
         <div>
             <button onClick={()=>setTodo([...todo,'todo 3'])}>Click</button>
