@@ -1,6 +1,6 @@
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Card from "../Card/Card";
 import "./Grid.css";
 function isWinner(board, symbol) {
@@ -22,7 +22,7 @@ function Grid({ noOfCards }) {
     const [turn, setTurn] = useState(true);
     const [board, setBoard] = useState(Array(noOfCards).fill(""));
     const [winner, setWinner] = useState(null);
-    function play(index) {
+   const play= useCallback(function playCallback(index) {
         if (turn == true) {
             board[index] = "o";
         } else {
@@ -37,7 +37,7 @@ function Grid({ noOfCards }) {
         }
         setBoard([...board]);
         setTurn(!turn);
-    }
+    },[turn]);
     function reset() {
         setBoard(Array(noOfCards).fill(""));
         setWinner(null);
@@ -56,7 +56,7 @@ function Grid({ noOfCards }) {
             <h1 className="white">Current Turn: {(turn) ? '0' : 'x'}</h1>
             <div className="grid">
                 {board.map((key, index) => {
-                    return <Card onPlay={play} player={key} key={index} index={index} />
+                    return <Card gameEnd={winner ? true : false} onPlay={play} player={key} key={index} index={index} />
                 })};
             </div>
         </div>

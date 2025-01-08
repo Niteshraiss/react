@@ -1,6 +1,7 @@
 import Icon from "../Icon/Icon";
 import "./Card.css";
-function Card({onPlay,player,index}) {
+import { memo } from "react";
+function Card({onPlay,player,index,gameEnd}) {
     let icon=<Icon />
     if (player=='x') {
     icon=<Icon name={"cross"}/>
@@ -8,9 +9,9 @@ function Card({onPlay,player,index}) {
     icon=<Icon name={"circle"}/>
 }
         return (
-            <div className="card" onClick={()=>onPlay(index)}>
+            <div className="card" onClick={()=>!gameEnd && player=="" && onPlay(index)}>
               {icon}
             </div>
         )
 }
-export default Card;
+export default memo(Card);
